@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AI Student Presentation Analyzer</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        🎤 AI Presentation Analyzer
+    </div>
+
+    <div class="header-right">
+
+        <span class="status">
+            ● AI System Online
+        </span>
+
+        <button
+            class="logout-btn"
+            onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+        <div>
+
+            <p class="small-title">
+                AI POWERED LEARNING
+            </p>
+
+            <h1>
+                Analyze Your Presentation
+            </h1>
+
+            <p>
+                Upload your presentation speech and let AI
+                analyze your speaking performance.
+            </p>
+
+        </div>
+
+        <div class="welcome-icon">
+            🎤
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= UPLOAD ================= -->
+
+    <section class="upload-section">
+
+        <h2>🎙️ Upload Presentation Speech</h2>
+
+        <p>
+            Upload an audio recording of your presentation.
+        </p>
+
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                📁
+            </div>
+
+            <h3>
+                Choose Audio File
+            </h3>
+
+            <p>
+                MP3, WAV and other audio files
+            </p>
+
+            <input
+                type="file"
+                id="audioFile"
+                accept="audio/*"
+                onchange="showFileName()"
+            >
+
+            <p id="fileName"></p>
+
+        </div>
+
+
+        <div class="buttons">
+
+            <button
+                class="analyze-btn"
+                onclick="analyzePresentation()">
+
+                🔍 Analyze Presentation
+
+            </button>
+
+
+            <button
+                class="record-btn"
+                onclick="startRecording()">
+
+                🎙️ Record Speech
+
+            </button>
+
+
+            <button
+                class="reset-btn"
+                onclick="resetAnalysis()">
+
+                ↻ Reset
+
+            </button>
+
+        </div>
+
+
+        <p id="recordStatus"></p>
+
+
+        <div id="loading">
+
+            ⏳ AI is analyzing your presentation...
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= RESULT CARDS ================= -->
+
+    <section class="dashboard">
+
+
+        <div class="result-card blue">
+
+            <div class="result-icon">
+                ⚡
+            </div>
+
+            <h3>Speaking Speed</h3>
+
+            <h2 id="speed">
+                --
+            </h2>
+
+            <p>
+                Words Per Minute
+            </p>
+
+        </div>
+
+
+        <div class="result-card purple">
+
+            <div class="result-icon">
+                🔍
+            </div>
+
+            <h3>Filler Words</h3>
+
+            <h2 id="filler">
+                --
+            </h2>
+
+            <p>
+                Detected
+            </p>
+
+        </div>
+
+
+        <div class="result-card green">
+
+            <div class="result-icon">
+                😊
+            </div>
+
+            <h3>Emotion</h3>
+
+            <h2 id="emotion">
+                --
+            </h2>
+
+            <p>
+                Overall Emotion
+            </p>
+
+        </div>
+
+
+        <div class="result-card orange">
+
+            <div class="result-icon">
+                ⭐
+            </div>
+
+            <h3>Presentation Score</h3>
+
+            <h2 id="score">
+                --
+            </h2>
+
+            <p>
+                Overall Performance
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SECOND RESULTS ================= -->
+
+    <section class="two-column">
+
+
+        <!-- SENTIMENT -->
+
+        <div class="result-box">
+
+            <h2>
+                💭 Sentiment Analysis
+            </h2>
+
+            <div class="sentiment-result">
+
+                <span id="sentimentIcon">
+                    😊
+                </span>
+
+                <div>
+
+                    <h3 id="sentiment">
+                        Not Analyzed
+                    </h3>
+
+                    <p id="sentimentText">
+                        Analyze your presentation
+                        to see the result.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONFIDENCE -->
+
+        <div class="result-box">
+
+            <h2>
+                💪 Confidence Level
+            </h2>
+
+            <div class="progress-area">
+
+                <div class="progress-bar">
+
+                    <div
+                        id="confidenceBar"
+                        class="progress">
+                    </div>
+
+                </div>
+
+                <h3 id="confidence">
+                    0%
+                </h3>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= TRANSCRIPT ================= -->
+
+    <section class="content-box">
+
+        <div class="box-header">
+
+            <h2>
+                📝 Speech Transcript
+            </h2>
+
+            <button
+                onclick="copyTranscript()">
+
+                📋 Copy
+
+            </button>
+
+        </div>
+
+
+        <div id="transcript">
+
+            Upload your presentation speech and
+            click Analyze Presentation.
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= SUGGESTIONS ================= -->
+
+    <section class="suggestions">
+
+        <h2>
+            💡 AI Improvement Suggestions
+        </h2>
+
+        <div id="suggestionList">
+
+            <div class="suggestion">
+
+                📌
+                Analyze your presentation to
+                receive AI suggestions.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= KEY POINTS ================= -->
+
+    <section class="content-box">
+
+        <h2>
+            🔑 Presentation Highlights
+        </h2>
+
+        <ul id="keyPoints">
+
+            <li>
+                No analysis available yet.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+</main>
+
+
+
+<footer>
+
+    AI-Based Student Presentation Analysis System
+
+    <br>
+
+    © 2026 | AI Powered Learning
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
